@@ -12,7 +12,7 @@ import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
-
+import {io} from "socket.io-client"
 const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
@@ -21,6 +21,34 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState(false)
     const [showThankYou, setShowThankYou] = useState(true)
+    const [mainData, setMainData] = useState({})
+
+    const clientId = '636dadcf2626f92aade6664a';
+    const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
+    const socket = io(payloadURL);
+
+    //Main Data content
+    socket.on(`mainData=${clientId}`, function (data) {
+        //console.log('mainData',data);
+        setMainData(data)
+    });
+    console.log(mainData)
+    
+    //Email Data content
+    socket.on(`emailData=${clientId}`, function (data) {
+        console.log('email Data',data);
+    });
+    
+    //TYP Data content
+    socket.on(`TYPData=${clientId}`, function (data) {
+        console.log('TYP data',data);
+    });
+
+    //TweetsData content
+    socket.on(`TweetsData=${clientId}`, function (data) {
+        console.log('Tweets data',data);
+    });
+
     const handleChange = e => {
         e.preventDefault();
         setDataUser({
@@ -64,30 +92,30 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
     }
     return (
 
-        <div className={'container'} style={{justifyContent: 'center', display: 'block'}}>
+        <div className={'container main-form-flex-container'} >
             <div>
                 {/*<img style={{margin: '20px', maxHeight: '50px', maxWidth: '50px', height: '100%', width: '100px'}}*/}
                 {/*     src={icon}/>*/}
             </div>
-            <Card  style={{marginTop: '20px',}} className="bg-dark card-img text-white">
-                <Card.Img style={{maxWidth: '1150px', maxHeight: '350px', height: '100%', width: '100%'}} src={mainimage}
+            <Card className="bg-dark card-img text-white">
+                <Card.Img  src={mainimage}
                      alt={'header'}/>
-                     <Card.ImgOverlay style={{backgroundColor:'rgba(0,0,0,0.3)'}}>
+                     <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
-                         <Card.Text className={'text'} style={{fontWeight:'300px', textAlign:'center'}}>
+                         <Card.Text className={'text'} >
                                  Contact Your MP
                          </Card.Text>
-                             <Card.Text className={'text2'} style={{fontWeight:'300px', textAlign:'center'}}>
+                             <Card.Text className={'text2'} >
                                 Try Our Demo
                              </Card.Text>
                          </Card.Body>
                      </Card.ImgOverlay>
             </Card>
-            <div className={'container'} style={{padding: '35px'}}>
+            <div className={'container instructions' } >
                 This is a demo built by Touch Point International to show the user experience for our "Contact Your MP" Portal. Start now by typing in your email and postcode.
             </div>
-            <div style={{maxWidth: '1150px', width: '100%', backgroundColor: '#f4f4f4'}}>
-                <div hidden={showFindForm} className={'container'} style={{textAlign: 'center', padding: '30px'}}>
+            <div className={'form-container'}>
+                <div hidden={showFindForm} className={'container container-content'} >
                     {error ? <Alert variant={'danger'}>
                         All fields are required!
                     </Alert> : null}
@@ -142,7 +170,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                         /> : null }
                     </Form>
 
-                    <div style={{textAlign: 'justify'}} className={'container'} hidden={showList}>
+                    <div className={'container senators-container'} hidden={showList}>
                         <div>
                             <p>NOTE: Choose only one Representative at a time.
                                 If you wish to contact more than one representative, or add further emails to the same
@@ -164,7 +192,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                             )}
                         </div>
                     </div>
-                    <div style={{textAlign: 'justify'}} className={'container'} hidden={showList}>
+                    <div className={'container senators-container'} hidden={showList}>
                         <h2>Senators</h2>
                         {senator.filter(item => item.govt_type === 'Federal Senators').map((mps, index) => (
                                 <div>
