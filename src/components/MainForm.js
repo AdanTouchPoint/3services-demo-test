@@ -6,13 +6,14 @@ import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import List from './List'
 import mainimage from '../assets/laptop-with-notebook-and-glasses-on-table.jpg';
-import icon from '../assets/tw.png'
+//import icon from '../assets/tw.png'
 import cryptoRandomString from "crypto-random-string";
 import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
 import {io} from "socket.io-client"
+
 const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
@@ -89,8 +90,8 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
-        const mps = {}
     }
+    
     return (
 
         <div className={'container main-form-flex-container'} >
