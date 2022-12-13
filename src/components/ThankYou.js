@@ -12,7 +12,7 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou}) => {
         <div hidden={showThankYou} className={'container typ-container'}>
             <form onSubmit={click}>
                 <div className='typ-content'>
-                    <h1>Your message has been sent successfully</h1>
+                    <h3>Your message has been sent successfully</h3>
                     <h5>If you wish to email another representative or you wish to send another email to the same
                         representative Click Repeat Button.</h5>
                     <Button

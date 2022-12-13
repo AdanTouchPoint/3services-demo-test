@@ -38,7 +38,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             return
         }
         setError(false)
-        const payload = await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
+        const payload = //await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)

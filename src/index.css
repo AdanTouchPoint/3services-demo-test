@@ -11,13 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
 }
+.main-image-container{
+  margin-top:20px ;
+}
 .card-img{
   max-width: 1150px;
   max-height: 350px;
   height: 100%;
   width: 100%;
   background-size: cover;
-  margin-top: 20px;
+  
 }
 .card-img-overlay{
   background-color:rgba(0,0,0,0.3);
@@ -101,6 +104,7 @@ display: flex;
 .typ-container{
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .typ-content{
   max-width: 700px;
@@ -125,5 +129,13 @@ display: flex;
   }
   .text2 {
     font-size: 25px;
+  }
+  .typ-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:30px;
+    row-gap: 20px;
+
   }
 }

@@ -76,6 +76,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
             setError(true)
             return
         }
+
         setError(false)
 //---> ends validation form
         const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
@@ -88,7 +89,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
-
+        const mps = {}
     }
     return (
 
@@ -97,7 +98,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 {/*<img style={{margin: '20px', maxHeight: '50px', maxWidth: '50px', height: '100%', width: '100px'}}*/}
                 {/*     src={icon}/>*/}
             </div>
-            <Card className="bg-dark card-img text-white">
+            <Card className="bg-dark card-img text-white main-image-container">
                 <Card.Img  src={mainimage}
                      alt={'header'}/>
                      <Card.ImgOverlay className={'card-img-overlay'}>
@@ -229,6 +230,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 setShowFindForm={setShowFindForm}
                 setShowThankYou={setShowThankYou}
                 showThankYou={showThankYou}/>
+            
         </div>
     )
 }
