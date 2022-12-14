@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup"
 import Col from "react-bootstrap/cjs/Col";
-import axios from "axios";
+//import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
 
@@ -38,7 +38,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             return
         }
         setError(false)
-        const payload = await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
+        const payload = //await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)
@@ -128,7 +128,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                         </InputGroup>
                     </Col>
                 </div>
-                <div style={{paddingTop: '5px'}}>
+                <div className='input-subject'>
                     <Col>
                         <Form.Group>
                             <Form.Label>
@@ -145,7 +145,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     </Col>
                 </div>
                 <Col>
-                    <Form.Group style={{paddingTop: '20px'}}>
+                    <Form.Group className='input-text-form'>
                         <Form.Control
                             as="textarea"
                             rows={8}
@@ -164,16 +164,16 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     timeout={5000} //5 secs
                 />
             </Form>
-            <div className={'container'} style={{textAlign: 'center'}}>
+            <div className={'container buttons-container-email-form'}>
                 <Button
                     type={'submit'}
-                    style={{margin: '20px'}}
+                    className={'button-email-form'}
                     variant={'dark'}
                     onClick={send}>
                     Send
                 </Button>
                 <Button
-                    style={{margin: '20px'}}
+                    className={'button-email-form'}
                     variant={'dark'}
                     onClick={back}>
                     Back
