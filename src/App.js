@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import MainForm from "./components/MainForm";
 
 function App() {
@@ -15,6 +15,27 @@ function App() {
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
+    const fetchData = async () => {
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+        }
+        const data = await fetch('https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const datos = await data.json()
+        console.log(datos.data, 'datos.data-email')
+        dataUser.text = datos.data?.docs[0].content[0].children[0].text
+        dataUser.subject = datos.data?.docs[0].subject
+    }
+    
+    useEffect(() => {
+        fetchData()
+        .catch((error)=>console.error(error))
+        
+        console.log(dataUser)
+    },[])
+    
+    
+
     return(
         <MainForm
             setEmailData={setEmailData}

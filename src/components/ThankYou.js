@@ -1,8 +1,27 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Button from "react-bootstrap/cjs/Button";
 
 
 const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou}) => {
+    
+    const [typData, setTypData] = useState({})
+    const fetchData = async () => {
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+        }
+        const data = await fetch('https://payload-demo-tpm.herokuapp.com/typ-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const datos = await data.json()
+        console.log(datos.data, 'datos.data-typ')
+        setTypData(datos)
+    }
+    
+    useEffect(() => {
+        fetchData()
+        .catch((error)=>console.error(error))
+        
+        console.log(typData)
+    },[])
     const click = e => {
         e.preventDefault()
         setShowThankYou(true)
@@ -12,14 +31,14 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou}) => {
         <div hidden={showThankYou} className={'container typ-container'}>
             <form onSubmit={click}>
                 <div className='typ-content'>
-                    <h3>Your message has been sent successfully</h3>
+                    <h3>{typData.data?.docs[0].thankYouMessage}</h3>
                     <h5>If you wish to email another representative or you wish to send another email to the same
                         representative Click Repeat Button.</h5>
                     <Button
                         type={'submit'}
                         onClick={click}
                         variant={'dark'}>
-                        RepeatProcess
+                        {typData.data?.docs[0].repeatButtonTYP}
                     </Button>
                 </div>
             </form>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import Loader from "react-loader-spinner";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/cjs/Button";
@@ -7,7 +7,7 @@ import axios from "axios";
 import List from './List'
 import mainimage from '../assets/laptop-with-notebook-and-glasses-on-table.jpg';
 //import icon from '../assets/tw.png'
-import cryptoRandomString from "crypto-random-string";
+import cryptoRandomString, { async } from "crypto-random-string";
 import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
@@ -23,32 +23,32 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
     const [error, setError] = useState(false)
     const [showThankYou, setShowThankYou] = useState(true)
     const [mainData, setMainData] = useState({})
-
+    const [pageContent, setPageContent] = useState(mainData)
     const clientId = '636dadcf2626f92aade6664a';
-    const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
-    const socket = io(payloadURL);
+    // const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
+    // const socket = io(payloadURL);
 
     //Main Data content
-    socket.on(`mainData=${clientId}`, function (data) {
-        //console.log('mainData',data);
-        setMainData(data)
-    });
-    console.log(mainData)
+    // socket.on(`mainData=${clientId}`, function (data) {
+    //     //console.log('mainData',data);
+    //     setMainData(data)
+    // });
+    //console.log(mainData)
     
     //Email Data content
-    socket.on(`emailData=${clientId}`, function (data) {
-        console.log('email Data',data);
-    });
+    // socket.on(`emailData=${clientId}`, function (data) {
+    //     console.log('email Data',data);
+    // });
     
-    //TYP Data content
-    socket.on(`TYPData=${clientId}`, function (data) {
-        console.log('TYP data',data);
-    });
+    // //TYP Data content
+    // socket.on(`TYPData=${clientId}`, function (data) {
+    //     console.log('TYP data',data);
+    // });
 
-    //TweetsData content
-    socket.on(`TweetsData=${clientId}`, function (data) {
-        console.log('Tweets data',data);
-    });
+    // //TweetsData content
+    // socket.on(`TweetsData=${clientId}`, function (data) {
+    //     console.log('Tweets data',data);
+    // });
 
     const handleChange = e => {
         e.preventDefault();
@@ -85,13 +85,36 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
         const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
         const dataPayload = await response.data.data
         const getMp = await response.data.getMp
+        
+        
         setSenator(dataPayload)
         setMp(getMp)
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
     }
+    const fetchData = async () => {
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+        }
+        const data = await fetch('https://payload-demo-tpm.herokuapp.com/main-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const datos = await data.json()
+        console.log(datos.data, 'datos.data')
+        setMainData(datos);
+        console.log(mainData)
+      }
     
+    useEffect(() => {
+        fetchData()
+        .catch((error)=>console.error(error))
+
+    console.log(mainData)
+    },[])
+    
+
+    console.log(mainData, 'mainData fuera antes del return')
+    if(!mainData) return 'loading datos'
     return (
 
         <div className={'container main-form-flex-container'} >
@@ -105,7 +128,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                      <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
                          <Card.Text className={'text'} >
-                                 Contact Your MP
+                                 {mainData.data?.docs[0].mainTitle}
                          </Card.Text>
                              <Card.Text className={'text2'} >
                                 Try Our Demo
@@ -114,7 +137,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                      </Card.ImgOverlay>
             </Card>
             <div className={'container instructions' } >
-                This is a demo built by Touch Point International to show the user experience for our "Contact Your MP" Portal. Start now by typing in your email and postcode.
+                {mainData.data?.docs[0].instructions}
             </div>
             <div className={'form-container'}>
                 <div hidden={showFindForm} className={'container container-content'} >
