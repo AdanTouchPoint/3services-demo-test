@@ -51,6 +51,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setShowFindForm(false)
         setShowEmailForm(true)
     }
+    console.log(dataUser, 'data user')
     return (
         <div className={'emailContainer'} hidden={showEmailForm}>
             {error ? <Alert variant={'danger'}>

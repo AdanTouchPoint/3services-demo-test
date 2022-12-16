@@ -12,7 +12,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}
         const data = await fetch('https://payload-demo-tpm.herokuapp.com/tweets/?clientId=636dadcf2626f92aade6664a', requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-tweet')
-        const textoTweet = datos.data?.docs[0].message
+        const textoTweet = datos.data?.docs[0].Message
         setTweet(textoTweet)
     }
     
@@ -20,7 +20,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}
         fetchData()
         .catch((error)=>console.error(error))
         
-        console.log(tweet)
+        console.log(tweet, 'tweet state en useeffect')
     },[])
     const tweetText = `.${mps.twitter} ${tweet}`
     console.log(tweetText)

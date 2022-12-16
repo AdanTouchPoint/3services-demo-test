@@ -9,8 +9,8 @@ function App() {
         userName: '',
         zipCode: '',
         emailUser: '',
-        subject:'The Subject Line is Pre-Filled and can be Edited',
-        text:'Users will see a pre-filled email and can edit it before sending. If the system administrator prefers, subject line and/or body text can made uneditable.'
+        subject:'',//'The Subject Line is Pre-Filled and can be Edited',
+        text:''//'Users will see a pre-filled email and can edit it before sending. If the system administrator prefers, subject line and/or body text can made uneditable.'
 
     })
     const [mp, setMp] = useState([])

@@ -13,6 +13,9 @@ import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
 import {io} from "socket.io-client"
+import mps from '../assets/mps';
+
+
 
 const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
@@ -82,13 +85,15 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
 //---> ends validation form
         const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
         dataUser.id = randomId;
-        const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
-        const dataPayload = await response.data.data
-        const getMp = await response.data.getMp
+        //const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
+      //  const dataPayload = await response.data.data
+      //  const getMp = await response.data.getMp
         
         
-        setSenator(dataPayload)
-        setMp(getMp)
+        setSenator(mps)// setSenator(dataPayload)
+        setMp(mps) //setMp(getMp)
+        console.log(mps, 'log de mps')
+        console.log(mp, 'log de estado mp')
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
@@ -111,10 +116,11 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
 
     console.log(mainData)
     },[])
-    
-
+    console.log(dataUser)
+    console.log(mp, 'log de estado mp')
     console.log(mainData, 'mainData fuera antes del return')
     if(!mainData) return 'loading datos'
+    if(!mp) return 'loading datos'
     return (
 
         <div className={'container main-form-flex-container'} >
@@ -123,7 +129,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 {/*     src={icon}/>*/}
             </div>
             <Card className="bg-dark card-img text-white main-image-container">
-                <Card.Img  src={mainimage}
+                <Card.Img  src={mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage }
                      alt={'header'}/>
                      <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
@@ -182,7 +188,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                 onClick={click}
                                 className={'u-full-width'}
                             >
-                                Find your MP
+                                {mainData.data?.docs[0] ['Find Button'] ? mainData.data?.docs[0] ['Find Button'] : 'Find your representative'}
                             </Button>
                         </Form.Group>
                         {showLoadSpin ? <Loader
@@ -212,9 +218,9 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                     setEmailData={setEmailData}
                                     dataUser={dataUser}
                                     mps={mps}
-                                    key={index}
+                                    //key={index}
                                 />)
-                            )}
+                            ) }
                         </div>
                     </div>
                     <div className={'container senators-container'} hidden={showList}>
@@ -254,7 +260,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 setShowFindForm={setShowFindForm}
                 setShowThankYou={setShowThankYou}
                 showThankYou={showThankYou}/>
-            
+           
         </div>
     )
 }
