@@ -32,8 +32,7 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou, clientId}) =>
             <form onSubmit={click}>
                 <div className='typ-content'>
                     <h3>{typData.data?.docs[0].thankYouMessage}</h3>
-                    <h5>If you wish to email another representative or you wish to send another email to the same
-                        representative Click Repeat Button.</h5>
+                    <h5>{typData.data?.docs[0].secondThankYouMessage}</h5>
                     <Button
                         type={'submit'}
                         onClick={click}

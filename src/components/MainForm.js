@@ -144,7 +144,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                  {mainData.data?.docs[0].mainTitle}
                          </Card.Text>
                              <Card.Text className={'text2'} >
-                                Try Our Demo
+                             {mainData.data?.docs[0].mainSubTitle}
                              </Card.Text>
                          </Card.Body>
                      </Card.ImgOverlay>
