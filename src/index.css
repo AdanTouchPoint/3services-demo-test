@@ -39,6 +39,7 @@ code {
 .main-form-flex-container{
   display: block;
   justify-content: center;
+  margin-bottom: 50px;
 }
 .container-content{
   text-align: center;
