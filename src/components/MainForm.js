@@ -18,7 +18,7 @@ import mps from '../assets/mps';
 
 
 
-const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
+const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, clientId}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
     const [showFindForm, setShowFindForm] = useState(false)
@@ -27,8 +27,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
     const [error, setError] = useState(false)
     const [showThankYou, setShowThankYou] = useState(true)
     const [mainData, setMainData] = useState({})
-    const [pageContent, setPageContent] = useState(mainData)
-    const clientId = '636dadcf2626f92aade6664a';
+ 
     // const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
     // const socket = io(payloadURL);
 
@@ -90,7 +89,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
             method: 'POST',
             redirect: 'follow'
           };
-        fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=636dadcf2626f92aade6664a&postalcode=${dataUser.zipCode}`, requestOptions)
+        fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=${clientId}&postalcode=${dataUser.zipCode}`, requestOptions)
         .then(response => response.json())
         .then(result => setMp(result.data))
         .catch(error => console.log('error', error));
@@ -111,7 +110,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
             method: 'POST',
             redirect: 'follow'
         }
-        const data = await fetch('https://payload-demo-tpm.herokuapp.com/main-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const data = await fetch(`https://payload-demo-tpm.herokuapp.com/main-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data')
         setMainData(datos);
@@ -226,6 +225,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                     setEmailData={setEmailData}
                                     dataUser={dataUser}
                                     mps={mps}
+                                    clientId={clientId}
                                     //key={index}
                                 />)  
                             ): <Alert variant='danger'>No se han encontrado Mp`s con el código postal que nos has proveído</Alert> }
@@ -250,6 +250,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 setEmailData={setEmailData}
                 setShowFindForm={setShowFindForm}
                 setShowThankYou={setShowThankYou}
+                clientId={clientId}
                 showThankYou={showThankYou}/>
            
         </div>
