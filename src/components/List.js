@@ -37,14 +37,14 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}
         <div className={'buttonsContainer'}>
             <div className={'list-content-location'}>
                 <div>
-                    <h3> {mps.name} </h3>
-                    <p>For: {mps.address}, City: {mps.city}, -State: {mps.state}</p>
+                    <h3> {mps.Name} </h3>
+                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.city}</p>
                 </div>
             </div>
             <div className={'buttons'}>
                 <div className='list-buttons-content'>
                     {
-                        mps.twitter !== 'NULL' ?
+                        mps.twitter ?
                         <Button
                             className='list-button'
                             size={'sm'}
@@ -59,7 +59,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}
                 </div>
                 <div className={'container list-buttons-content'}>
                     {
-                        mps.email ?
+                        mps.contact ?
                             <Button
                                 className='list-button'
                                 size={'sm'}

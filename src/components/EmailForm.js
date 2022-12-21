@@ -3,7 +3,7 @@ import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup"
 import Col from "react-bootstrap/cjs/Col";
-//import axios from "axios";
+import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
 
@@ -38,7 +38,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             return
         }
         setError(false)
-        const payload = //await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName}&emailData=${dataUser.emailUser}`, {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)
@@ -51,6 +51,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setShowFindForm(false)
         setShowEmailForm(true)
     }
+    console.log('emailData',emailData)
     console.log(dataUser, 'data user')
     return (
         <div className={'emailContainer'} hidden={showEmailForm}>
@@ -102,7 +103,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={emailData.name}
+                                placeholder={emailData.Name}
                                 name="nameTo"
                             />
                         </Form.Group>
@@ -113,7 +114,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={`${emailData.city} - ${emailData.state}`}
+                                placeholder={`${emailData.city} - ${emailData.city}`}
                                 name="state-city"
                             />
                         </Form.Group>

@@ -15,8 +15,11 @@ code {
   margin-top:20px ;
 }
 .card-img{
+  background-color: rgba(0,0,0,.03);
   max-width: 1150px;
   max-height: 350px;
+  min-width: 1050px;
+  min-height: 350px;
   height: 100%;
   width: 100%;
   background-size: cover;

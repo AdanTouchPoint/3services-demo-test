@@ -17,6 +17,7 @@ import mps from '../assets/mps';
 
 
 
+
 const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
@@ -85,15 +86,22 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
 //---> ends validation form
         const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
         dataUser.id = randomId;
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+          };
+        fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=636dadcf2626f92aade6664a&postalcode=${dataUser.zipCode}`, requestOptions)
+        .then(response => response.json())
+        .then(result => setMp(result.data))
+        .catch(error => console.log('error', error));
         //const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
       //  const dataPayload = await response.data.data
       //  const getMp = await response.data.getMp
         
         
-        setSenator(mps)// setSenator(dataPayload)
-        setMp(mps) //setMp(getMp)
-        console.log(mps, 'log de mps')
-        console.log(mp, 'log de estado mp')
+        //setMp(mps) //setMp(getMp)
+
+
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
@@ -129,7 +137,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 {/*     src={icon}/>*/}
             </div>
             <Card className="bg-dark card-img text-white main-image-container">
-                <Card.Img  src={mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage }
+                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage })`}} 
                      alt={'header'}/>
                      <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
@@ -209,7 +217,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                         </div>
                         <h2>MP´s</h2>
                         <div>
-                            {mp.length > 0 && mp.filter(item => item.govt_type === 'Federal MPs').map((mps, index) => (
+                            {mp.length > 0 ? mp.map((mps, index) => (
                                 <List
                                     setShowEmailForm={setShowEmailForm}
                                     setShowFindForm={setShowFindForm}
@@ -219,28 +227,11 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                     dataUser={dataUser}
                                     mps={mps}
                                     //key={index}
-                                />)
-                            ) }
+                                />)  
+                            ): <Alert variant='danger'>No se han encontrado Mp`s con el código postal que nos has proveído</Alert> }
                         </div>
                     </div>
-                    <div className={'container senators-container'} hidden={showList}>
-                        <h2>Senators</h2>
-                        {senator.filter(item => item.govt_type === 'Federal Senators').map((mps, index) => (
-                                <div>
-                                    <List
-                                        setShowEmailForm={setShowEmailForm}
-                                        setShowFindForm={setShowFindForm}
-                                        showFindForm={showFindForm}
-                                        emailData={emailData}
-                                        setEmailData={setEmailData}
-                                        dataUser={dataUser}
-                                        mps={mps}
-                                        key={index}
-                                    />
-                                </div>
-                            )
-                        )}
-                    </div>
+                    
                 </div>
             </div>
             <EmailForm
