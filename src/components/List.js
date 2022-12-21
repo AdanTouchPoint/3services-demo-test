@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react'
 import Button from "react-bootstrap/cjs/Button";
 
 
-const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}) => {
+const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm, clientId}) => {
     const [tweet, setTweet] = useState(``)
     const fetchData = async () => {
         const requestOptions = {
             method: 'POST',
             redirect: 'follow'
         }
-        const data = await fetch('https://payload-demo-tpm.herokuapp.com/tweets/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const data = await fetch(`https://payload-demo-tpm.herokuapp.com/tweets/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-tweet')
         const textoTweet = datos.data?.docs[0].Message
@@ -79,7 +79,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm}
                                 className='list-button'
                                 size={'sm'}
                                 variant={'dark'}
-                                href={`tel:+61${mps.phone}`}
+                                href={`tel:+55${mps.phone}`}
                                 target={"blank"}
                             >
                                 CALL

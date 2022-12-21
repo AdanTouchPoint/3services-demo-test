@@ -120,6 +120,10 @@ display: flex;
   .formEmail {
     display: block;
   }
+  .card-img{
+    min-width: auto;
+    min-height: 250px;
+  }
   .emailContainer{
     padding: 25px;
   }

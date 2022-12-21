@@ -15,12 +15,13 @@ function App() {
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
+    const [clientId, setClientId] = useState(`636dadcf2626f92aade6664a`)
     const fetchData = async () => {
         const requestOptions = {
             method: 'POST',
             redirect: 'follow'
         }
-        const data = await fetch('https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const data = await fetch(`https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-email')
         dataUser.text = datos.data?.docs[0].content[0].children[0].text
@@ -46,6 +47,7 @@ function App() {
             setMp={setMp}
             senator={senator}
             setSenator={setSenator}
+            clientId={clientId}
         />
     )
 

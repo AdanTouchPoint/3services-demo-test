@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Button from "react-bootstrap/cjs/Button";
 
 
-const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou}) => {
+const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou, clientId}) => {
     
     const [typData, setTypData] = useState({})
     const fetchData = async () => {
@@ -10,7 +10,7 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou}) => {
             method: 'POST',
             redirect: 'follow'
         }
-        const data = await fetch('https://payload-demo-tpm.herokuapp.com/typ-content/?clientId=636dadcf2626f92aade6664a', requestOptions);
+        const data = await fetch(`https://payload-demo-tpm.herokuapp.com/typ-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-typ')
         setTypData(datos)
