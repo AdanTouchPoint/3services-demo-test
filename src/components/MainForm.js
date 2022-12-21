@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import Loader from "react-loader-spinner";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/cjs/Button";
@@ -6,14 +6,19 @@ import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import List from './List'
 import mainimage from '../assets/laptop-with-notebook-and-glasses-on-table.jpg';
-import icon from '../assets/tw.png'
-import cryptoRandomString from "crypto-random-string";
+//import icon from '../assets/tw.png'
+import cryptoRandomString, { async } from "crypto-random-string";
 import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
+import {io} from "socket.io-client"
+import mps from '../assets/mps';
 
-const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEmailData, emailData}) => {
+
+
+
+const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, clientId}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
     const [showFindForm, setShowFindForm] = useState(false)
@@ -21,6 +26,33 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState(false)
     const [showThankYou, setShowThankYou] = useState(true)
+    const [mainData, setMainData] = useState({})
+ 
+    // const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
+    // const socket = io(payloadURL);
+
+    //Main Data content
+    // socket.on(`mainData=${clientId}`, function (data) {
+    //     //console.log('mainData',data);
+    //     setMainData(data)
+    // });
+    //console.log(mainData)
+    
+    //Email Data content
+    // socket.on(`emailData=${clientId}`, function (data) {
+    //     console.log('email Data',data);
+    // });
+    
+    // //TYP Data content
+    // socket.on(`TYPData=${clientId}`, function (data) {
+    //     console.log('TYP data',data);
+    // });
+
+    // //TweetsData content
+    // socket.on(`TweetsData=${clientId}`, function (data) {
+    //     console.log('Tweets data',data);
+    // });
+
     const handleChange = e => {
         e.preventDefault();
         setDataUser({
@@ -48,46 +80,80 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
             setError(true)
             return
         }
+
         setError(false)
 //---> ends validation form
         const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
         dataUser.id = randomId;
-        const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
-        const dataPayload = await response.data.data
-        const getMp = await response.data.getMp
-        setSenator(dataPayload)
-        setMp(getMp)
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+          };
+        fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=${clientId}&postalcode=${dataUser.zipCode}`, requestOptions)
+        .then(response => response.json())
+        .then(result => setMp(result.data))
+        .catch(error => console.log('error', error));
+        //const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
+      //  const dataPayload = await response.data.data
+      //  const getMp = await response.data.getMp
+        
+        
+        //setMp(mps) //setMp(getMp)
+
+
         setShowLoadSpin(false)
         setShowList(false)
         scroll.scrollToBottom();
-
     }
+    const fetchData = async () => {
+        const requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+        }
+        const data = await fetch(`https://payload-demo-tpm.herokuapp.com/main-content/?clientId=${clientId}`, requestOptions);
+        const datos = await data.json()
+        console.log(datos.data, 'datos.data')
+        setMainData(datos);
+        console.log(mainData)
+      }
+    
+    useEffect(() => {
+        fetchData()
+        .catch((error)=>console.error(error))
+
+    console.log(mainData)
+    },[])
+    console.log(dataUser)
+    console.log(mp, 'log de estado mp')
+    console.log(mainData, 'mainData fuera antes del return')
+    if(!mainData) return 'loading datos'
+    if(!mp) return 'loading datos'
     return (
 
-        <div className={'container'} style={{justifyContent: 'center', display: 'block'}}>
+        <div className={'container main-form-flex-container'} >
             <div>
                 {/*<img style={{margin: '20px', maxHeight: '50px', maxWidth: '50px', height: '100%', width: '100px'}}*/}
                 {/*     src={icon}/>*/}
             </div>
-            <Card  style={{marginTop: '20px',}} className="bg-dark card-img text-white">
-                <Card.Img style={{maxWidth: '1150px', maxHeight: '350px', height: '100%', width: '100%'}} src={mainimage}
+            <Card className="bg-dark card-img text-white main-image-container">
+                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage })`}} 
                      alt={'header'}/>
-                     <Card.ImgOverlay style={{backgroundColor:'rgba(0,0,0,0.3)'}}>
+                     <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
-                         <Card.Text className={'text'} style={{fontWeight:'300px', textAlign:'center'}}>
-                                 Contact Your MP
+                         <Card.Text className={'text'} >
+                                 {mainData.data?.docs[0].mainTitle}
                          </Card.Text>
-                             <Card.Text className={'text2'} style={{fontWeight:'300px', textAlign:'center'}}>
+                             <Card.Text className={'text2'} >
                                 Try Our Demo
                              </Card.Text>
                          </Card.Body>
                      </Card.ImgOverlay>
             </Card>
-            <div className={'container'} style={{padding: '35px'}}>
-                This is a demo built by Touch Point International to show the user experience for our "Contact Your MP" Portal. Start now by typing in your email and postcode.
+            <div className={'container instructions' } >
+                {mainData.data?.docs[0].instructions}
             </div>
-            <div style={{maxWidth: '1150px', width: '100%', backgroundColor: '#f4f4f4'}}>
-                <div hidden={showFindForm} className={'container'} style={{textAlign: 'center', padding: '30px'}}>
+            <div className={'form-container'}>
+                <div hidden={showFindForm} className={'container container-content'} >
                     {error ? <Alert variant={'danger'}>
                         All fields are required!
                     </Alert> : null}
@@ -129,7 +195,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                 onClick={click}
                                 className={'u-full-width'}
                             >
-                                Find your MP
+                                {mainData.data?.docs[0] ['Find Button'] ? mainData.data?.docs[0] ['Find Button'] : 'Find your representative'}
                             </Button>
                         </Form.Group>
                         {showLoadSpin ? <Loader
@@ -142,7 +208,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                         /> : null }
                     </Form>
 
-                    <div style={{textAlign: 'justify'}} className={'container'} hidden={showList}>
+                    <div className={'container senators-container'} hidden={showList}>
                         <div>
                             <p>NOTE: Choose only one Representative at a time.
                                 If you wish to contact more than one representative, or add further emails to the same
@@ -150,7 +216,7 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                         </div>
                         <h2>MP´s</h2>
                         <div>
-                            {mp.length > 0 && mp.filter(item => item.govt_type === 'Federal MPs').map((mps, index) => (
+                            {mp.length > 0 ? mp.map((mps, index) => (
                                 <List
                                     setShowEmailForm={setShowEmailForm}
                                     setShowFindForm={setShowFindForm}
@@ -159,29 +225,13 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                                     setEmailData={setEmailData}
                                     dataUser={dataUser}
                                     mps={mps}
-                                    key={index}
-                                />)
-                            )}
+                                    clientId={clientId}
+                                    //key={index}
+                                />)  
+                            ): <Alert variant='danger'>No se han encontrado Mp`s con el código postal que nos has proveído</Alert> }
                         </div>
                     </div>
-                    <div style={{textAlign: 'justify'}} className={'container'} hidden={showList}>
-                        <h2>Senators</h2>
-                        {senator.filter(item => item.govt_type === 'Federal Senators').map((mps, index) => (
-                                <div>
-                                    <List
-                                        setShowEmailForm={setShowEmailForm}
-                                        setShowFindForm={setShowFindForm}
-                                        showFindForm={showFindForm}
-                                        emailData={emailData}
-                                        setEmailData={setEmailData}
-                                        dataUser={dataUser}
-                                        mps={mps}
-                                        key={index}
-                                    />
-                                </div>
-                            )
-                        )}
-                    </div>
+                    
                 </div>
             </div>
             <EmailForm
@@ -200,7 +250,9 @@ const MainForm = ({dataUser, setDataUser, setSenator, senator, mp, setMp, setEma
                 setEmailData={setEmailData}
                 setShowFindForm={setShowFindForm}
                 setShowThankYou={setShowThankYou}
+                clientId={clientId}
                 showThankYou={showThankYou}/>
+           
         </div>
     )
 }

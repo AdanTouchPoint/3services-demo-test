@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup"
@@ -38,7 +38,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             return
         }
         setError(false)
-        const payload = await axios.post('https://mailer-mailjet.herokuapp.com/email', {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName}&emailData=${dataUser.emailUser}`, {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)
@@ -51,6 +51,8 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setShowFindForm(false)
         setShowEmailForm(true)
     }
+    console.log('emailData',emailData)
+    console.log(dataUser, 'data user')
     return (
         <div className={'emailContainer'} hidden={showEmailForm}>
             {error ? <Alert variant={'danger'}>
@@ -101,7 +103,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={emailData.name}
+                                placeholder={emailData.Name}
                                 name="nameTo"
                             />
                         </Form.Group>
@@ -112,7 +114,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={`${emailData.city} - ${emailData.state}`}
+                                placeholder={`${emailData.city} - ${emailData.city}`}
                                 name="state-city"
                             />
                         </Form.Group>
@@ -128,7 +130,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                         </InputGroup>
                     </Col>
                 </div>
-                <div style={{paddingTop: '5px'}}>
+                <div className='input-subject'>
                     <Col>
                         <Form.Group>
                             <Form.Label>
@@ -145,7 +147,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     </Col>
                 </div>
                 <Col>
-                    <Form.Group style={{paddingTop: '20px'}}>
+                    <Form.Group className='input-text-form'>
                         <Form.Control
                             as="textarea"
                             rows={8}
@@ -164,16 +166,16 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     timeout={5000} //5 secs
                 />
             </Form>
-            <div className={'container'} style={{textAlign: 'center'}}>
+            <div className={'container buttons-container-email-form'}>
                 <Button
                     type={'submit'}
-                    style={{margin: '20px'}}
+                    className={'button-email-form'}
                     variant={'dark'}
                     onClick={send}>
                     Send
                 </Button>
                 <Button
-                    style={{margin: '20px'}}
+                    className={'button-email-form'}
                     variant={'dark'}
                     onClick={back}>
                     Back
