@@ -38,13 +38,13 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
             <div className={'list-content-location'}>
                 <div>
                     <h3> {mps.Name} </h3>
-                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.city}</p>
+                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.state}</p>
                 </div>
             </div>
             <div className={'buttons'}>
                 <div className='list-buttons-content'>
                     {
-                        mps.twitter ?
+                        mps.twitter && mps.clientId?.plan !== 'basic'?
                         <Button
                             className='list-button'
                             size={'sm'}
@@ -74,7 +74,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                 </div>
                 <div className={'container list-buttons-content'}>
                     {
-                        mps.phone ?
+                        mps.phone  && mps.clientId?.plan !== 'basic' ?
                             <Button
                                 className='list-button'
                                 size={'sm'}
