@@ -39,6 +39,7 @@ code {
 .main-form-flex-container{
   display: block;
   justify-content: center;
+  margin-bottom: 50px;
 }
 .container-content{
   text-align: center;
@@ -117,6 +118,43 @@ display: flex;
 }
 
 @media (max-width: 767px) {
+  .main-form-flex-container{
+    margin-bottom: 20px;
+  }
+  .formEmail {
+    display: block;
+  }
+  .card-img{
+    min-width: auto;
+    min-height: 250px;
+  }
+  .emailContainer{
+    padding: 25px;
+  }
+  .buttonsContainer {
+    text-align: center;
+    display: block;
+  }
+  .text{
+    font-size: 25px;
+  }
+  .text2 {
+    font-size: 25px;
+  }
+  .typ-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:30px;
+    row-gap: 20px;
+
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px){
+  .main-form-flex-container{
+    margin-bottom: 20px;
+  }
   .formEmail {
     display: block;
   }

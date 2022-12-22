@@ -49,7 +49,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                             className='list-button'
                             size={'sm'}
                             variant={'dark'}
-                            href={`https://twitter.com/intent/tweet?text=${tweetText} Tweets%20are%20pre-written%20and%20can%20be%20edited%20by%20users%20before%20posting.%20Links%2C%20hashtags%2C%20and%20handles%20can%20all%20be%20included%20in%20a%20tweet.`}
+                            href={`https://twitter.com/intent/tweet?text=${tweetText}`}
                             target={"blank"}
                         >
                             SEND TWEET
