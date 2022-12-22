@@ -42,7 +42,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                 </div>
             </div>
             <div className={'buttons'}>
-                <div className='list-buttons-content'>
+                <div >
                     {
                         mps.twitter && mps.clientId?.plan !== 'basic'?
                         <Button
@@ -57,7 +57,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                         <p className='list-notweeter-text' >No Twitter</p>
                     }
                 </div>
-                <div className={'container list-buttons-content'}>
+                <div >
                     {
                         mps.contact ?
                             <Button
@@ -69,10 +69,10 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                             >
                                 SEND EMAIL
                             </Button> :
-                            <p>No Email</p>
+                            <p className='list-notweeter-text'>No Email</p>
                     }
                 </div>
-                <div className={'container list-buttons-content'}>
+                <div >
                     {
                         mps.phone  && mps.clientId?.plan !== 'basic' ?
                             <Button
@@ -84,7 +84,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                             >
                                 CALL
                             </Button> :
-                            <p>No Phone</p>
+                            <p className='list-notweeter-text'>No Phone</p>
                     }
                 </div>
             </div>
