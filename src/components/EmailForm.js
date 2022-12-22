@@ -40,12 +40,26 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setError(false)
         const name = dataUser.userName.split(' ')
         console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${name[0]}&lastName=${name[1] ? name[1] : '' }&emailData=${dataUser.emailUser}`, {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&emailData=${dataUser.emailUser}`, {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)
             setShowThankYou(false)
             dataUser.id = ''
+        }
+        if(payload.status === 400)
+        {
+            return (
+                <Alert>
+                    the email has not been sent successfully, please try again later
+                    <Button
+                    className={'button-email-form'}
+                    variant={'dark'}
+                    onClick={back}>
+                    Back
+                </Button>
+                </Alert>
+            )
         }
     }
     const back = e => {

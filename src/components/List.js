@@ -44,7 +44,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
             <div className={'buttons'}>
                 <div className='list-buttons-content'>
                     {
-                        mps.twitter ?
+                        mps.twitter && mps.clientId?.plan !== 'basic'?
                         <Button
                             className='list-button'
                             size={'sm'}
@@ -74,7 +74,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                 </div>
                 <div className={'container list-buttons-content'}>
                     {
-                        mps.phone ?
+                        mps.phone  && mps.clientId?.plan !== 'basic' ?
                             <Button
                                 className='list-button'
                                 size={'sm'}
