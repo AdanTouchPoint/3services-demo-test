@@ -78,7 +78,10 @@ code {
   margin: 20px;
 }
 .buttons{
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 10px;
 
 }
 .formEmail {
@@ -103,6 +106,7 @@ display: flex;
 }
 .list-notweeter-text{
   text-align: center;
+  margin-bottom: 0;
 }
 
 .typ-container{
