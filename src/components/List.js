@@ -38,7 +38,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
             <div className={'list-content-location'}>
                 <div>
                     <h3> {mps.Name} </h3>
-                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.city}</p>
+                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.state}</p>
                 </div>
             </div>
             <div className={'buttons'}>

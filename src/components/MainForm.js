@@ -144,7 +144,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                  {mainData.data?.docs[0].mainTitle}
                          </Card.Text>
                              <Card.Text className={'text2'} >
-                             {mainData.data?.docs[0].mainSubTitle}
+                             {mainData.data?.docs[0].mainSubtitle}
                              </Card.Text>
                          </Card.Body>
                      </Card.ImgOverlay>
