@@ -155,7 +155,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
             <div className={'form-container'}>
                 <div hidden={showFindForm} className={'container container-content'} >
                     {error ? <Alert variant={'danger'}>
-                        All fields are required!
+                    Todos lo campos son necesarios, por favor introduzca los faltantes.
                     </Alert> : null}
                     <Link
                         activeClass="active"
