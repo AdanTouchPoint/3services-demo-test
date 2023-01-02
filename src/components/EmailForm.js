@@ -51,12 +51,12 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         {
             return (
                 <Alert>
-                    the email has not been sent successfully, please try again later
+                    El correo no ha sido enviado con éxito, por favor intente de nuevo más tarde
                     <Button
                     className={'button-email-form'}
                     variant={'dark'}
                     onClick={back}>
-                    Back
+                    Regresar
                 </Button>
                 </Alert>
             )
@@ -72,7 +72,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
     return (
         <div className={'emailContainer'} hidden={showEmailForm}>
             {error ? <Alert variant={'danger'}>
-                All fields are required!
+                Todos lo campos son necesarios, por favor introduzca los faltantes.
             </Alert> : null}
             <Form onSubmit={send} noValidate validated={validated}>
                 <div className={'formEmail'}>
@@ -80,7 +80,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                         <Form.Group
                             controlId="name">
                             <Form.Label>
-                                *First name and last name
+                                *Primer nombre y apellido
                             </Form.Label>
                             <Form.Control
                                 type="text"
@@ -109,7 +109,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                 </div>
                 <Col>
                     <Form.Label>
-                        TO: REPRESENTATIVE INFORMATION
+                        PARA: INFORMACIÓN DEL REPRESENTANTE
                     </Form.Label>
                 </Col>
                 <div className={'formEmail'}>
@@ -150,7 +150,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     <Col>
                         <Form.Group>
                             <Form.Label>
-                                Subject
+                                ASUNTO:
                             </Form.Label>
                             <Form.Control
                                 onChange={handleChange}
@@ -188,13 +188,13 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                     className={'button-email-form'}
                     variant={'dark'}
                     onClick={send}>
-                    Send
+                    Enviar
                 </Button>
                 <Button
                     className={'button-email-form'}
                     variant={'dark'}
                     onClick={back}>
-                    Back
+                    Regresar
                 </Button>
             </div>
         </div>

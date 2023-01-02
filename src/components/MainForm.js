@@ -136,7 +136,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                 {/*     src={icon}/>*/}
             </div>
             <Card className="bg-dark card-img text-white main-image-container">
-                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage })`}} 
+                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage })`, backgroundPosition: 'center' } } 
                      alt={'header'}/>
                      <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
@@ -167,11 +167,11 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                     >
                     </Link>
                     <Form onSubmit={click} noValidate validated={validated}>
-                        <h3>Find you local MP here:</h3>
+                        <h3 className='find-her-mp-text'>Encuentre aquí a su representante local:</h3>
                         <Form.Group>
                             <Form.Control
                                 type="email"
-                                placeholder="Enter email"
+                                placeholder="Introduzca su correo electrónico"
                                 name="emailUser"
                                 onChange={handleChange}
                                 required
@@ -180,7 +180,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                         <Form.Group >
                             <Form.Control
                                 type="text"
-                                placeholder="Type your zipCode and press ENTER"
+                                placeholder="Digite su código postal y presione ENTER"
                                 name="zipCode"
                                 onChange={handleChange}
                                 required
@@ -193,7 +193,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                 variant={'dark'}
                                 size={'lg'}
                                 onClick={click}
-                                className={'u-full-width'}
+                                className={'u-full-width capitalize-style find-btn-main-form'}
                             >
                                 {mainData.data?.docs[0] ['Find Button'] ? mainData.data?.docs[0] ['Find Button'] : 'Find your representative'}
                             </Button>
@@ -209,13 +209,12 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                     </Form>
 
                     <div className={'container senators-container'} hidden={showList}>
-                        <div>
-                            <p>NOTE: Choose only one Representative at a time.
-                                If you wish to contact more than one representative, or add further emails to the same
-                                Representative, you will have the option to repeat after sending each email.</p>
+                        <div className='note-container'>
+                            <p>NOTA: Escoja solamente a un representante a la vez.
+                                Si ustede desea contactar a otro representante, o enviar más emails al mismo, deberá seleccionar la opción de 'repetir' después de enviar el correo</p>
                         </div>
-                        <h2>MP´s</h2>
-                        <div>
+                        <h2>Representantes</h2>
+                        <div className='representatives-container'>
                             {mp.length > 0 ? mp.map((mps, index) => (
                                 <List
                                     setShowEmailForm={setShowEmailForm}
@@ -228,7 +227,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                     clientId={clientId}
                                     //key={index}
                                 />)  
-                            ): <Alert variant='danger'>No se han encontrado Mp`s con el código postal que nos has proveído</Alert> }
+                            ): <Alert variant='danger'>No se han encontrado representantes con el código postal que nos ha proveído</Alert> }
                         </div>
                     </div>
                     

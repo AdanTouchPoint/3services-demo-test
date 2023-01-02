@@ -37,8 +37,8 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
         <div className={'buttonsContainer'}>
             <div className={'list-content-location'}>
                 <div>
-                    <h3> {mps.Name} </h3>
-                    <p>For: {mps.postalcode}, City: {mps.city}, -State: {mps.state}</p>
+                    <h3 className='capitalize-style'> {mps.Name} </h3>
+                    <p>Para: {mps.postalcode}, Ciudad: {mps.city}, -Estado: {mps.state}</p>
                 </div>
             </div>
             <div className={'buttons'}>
@@ -52,9 +52,9 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                             href={`https://twitter.com/intent/tweet?text=${tweetText}`}
                             target={"blank"}
                         >
-                            SEND TWEET
+                            Enviar tweet
                         </Button> :
-                        <p className='list-notweeter-text' >No Twitter</p>
+                        <p className='list-notweeter-text' >No hay Twitter</p>
                     }
                 </div>
                 <div >
@@ -67,9 +67,9 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                                 target={"blank"}
                                 onClick={click}
                             >
-                                SEND EMAIL
+                                Enviar email
                             </Button> :
-                            <p className='list-notweeter-text'>No Email</p>
+                            <p className='list-notweeter-text'>No hay Email</p>
                     }
                 </div>
                 <div >
@@ -82,9 +82,9 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                                 href={`tel:+55${mps.phone}`}
                                 target={"blank"}
                             >
-                                CALL
+                                Llamada
                             </Button> :
-                            <p className='list-notweeter-text'>No Phone</p>
+                            <p className='list-notweeter-text'>No hay telefono</p>
                     }
                 </div>
             </div>
