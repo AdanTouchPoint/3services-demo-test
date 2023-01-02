@@ -36,7 +36,8 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou, clientId}) =>
                     <Button
                         type={'submit'}
                         onClick={click}
-                        variant={'dark'}>
+                        variant={'dark'}
+                        className="capitalize-style">
                         {typData.data?.docs[0].repeatButtonTyp}
                     </Button>
                 </div>
