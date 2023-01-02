@@ -91,7 +91,12 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
           };
         fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=${clientId}&postalcode=${dataUser.zipCode}`, requestOptions)
         .then(response => response.json())
-        .then(result => setMp(result.data))
+        .then(result => {
+            setMp(result.data)
+            setShowLoadSpin(false)
+            setShowList(false)
+
+        } )
         .catch(error => console.log('error', error));
         //const response = await axios.post(`https://sendemail-service.herokuapp.com/sendtwit`, {dataUser})
       //  const dataPayload = await response.data.data
@@ -101,8 +106,6 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         //setMp(mps) //setMp(getMp)
 
 
-        setShowLoadSpin(false)
-        setShowList(false)
         scroll.scrollToBottom();
     }
     const fetchData = async () => {
@@ -136,7 +139,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                 {/*     src={icon}/>*/}
             </div>
             <Card className="bg-dark card-img text-white main-image-container">
-                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.url ? mainData.data?.docs[0].backgroundImage.url : mainimage })`, backgroundPosition: 'center' } } 
+                <Card.Header className='card-img'  style={{ backgroundImage: `url(${mainData.data?.docs[0].backgroundImage?.sizes.card.url ? mainData.data?.docs[0].backgroundImage.sizes.card.url : mainimage })`, backgroundPosition: 'center' } } 
                      alt={'header'}/>
                      <Card.ImgOverlay className={'card-img-overlay'}>
                          <Card.Body>
