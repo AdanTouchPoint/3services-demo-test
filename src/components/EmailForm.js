@@ -7,7 +7,7 @@ import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
 
-const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData}) => {
+const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData, clientId}) => {
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState(false)
     const [showLoadSpin, setShowLoadSpin] = useState(false)
@@ -40,7 +40,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setError(false)
         const name = dataUser.userName.split(' ')
         console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&emailData=${dataUser.emailUser}`, {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode:''}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             setShowEmailForm(true)
@@ -130,7 +130,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={`${emailData.city} - ${emailData.city}`}
+                                placeholder={`${emailData.state}`}
                                 name="state-city"
                             />
                         </Form.Group>
