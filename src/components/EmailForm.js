@@ -6,6 +6,7 @@ import Col from "react-bootstrap/cjs/Col";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
+import { async } from 'crypto-random-string';
 
 const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData, clientId}) => {
     const [validated, setValidated] = useState(false);
@@ -24,6 +25,9 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         })
     }
     const {userName} = dataUser
+    const correoEnviado = (respuestaDeExito, dataUseryEmail) =>{
+        axios.post(`https://payload-demo-tpm.herokuapp.com/leads?&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode:dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}&sended=${respuestaDeExito}`, dataUseryEmail)
+    }
     const send = async e => {
         e.preventDefault()
         const form = e.currentTarget;
@@ -40,14 +44,16 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setError(false)
         const name = dataUser.userName.split(' ')
         console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode:''}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode: dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {dataUser, emailData})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
+            correoEnviado('Si',{dataUser, emailData})
             setShowEmailForm(true)
             setShowThankYou(false)
             dataUser.id = ''
         }
-        if(payload.status === 400)
+        if(payload.status !== 200)
+        correoEnviado('No', {dataUser, emailData})
         {
             return (
                 <Alert>
@@ -119,7 +125,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={emailData.Name}
+                                placeholder={emailData.name}
                                 name="nameTo"
                             />
                         </Form.Group>

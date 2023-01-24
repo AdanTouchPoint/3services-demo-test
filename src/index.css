@@ -18,7 +18,7 @@ code {
   background-color: rgba(0,0,0,.03);
   max-width: 1150px;
   max-height: 350px;
-  min-width: 1050px;
+  min-width: 100%;
   min-height: 350px;
   height: 100%;
   width: 100%;
