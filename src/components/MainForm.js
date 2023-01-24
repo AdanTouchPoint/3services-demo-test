@@ -62,7 +62,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         console.log(e.target.value)
         console.log(dataUser)
     }
-    const { zipCode, emailUser } = dataUser;
+    const { state, emailUser } = dataUser;
 
     const click = async e => {
         e.preventDefault();
@@ -76,7 +76,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         }
         setValidated(true);
         if (//firstName.trim() === '' || lastName.trim() === '' || //
-            zipCode.trim() === '' || emailUser.trim() === '') {
+            state.trim() === '' || emailUser.trim() === '') {
             setError(true)
             return
         }
@@ -86,10 +86,10 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
         dataUser.id = randomId;
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             redirect: 'follow'
           };
-        fetch(`https://payload-demo-tpm.herokuapp.com/representatives/?clientId=${clientId}&postalcode=${dataUser.zipCode}`, requestOptions)
+        fetch(`https://payload-demo-tpm.herokuapp.com/representatives-state/?clientId=${clientId}&state=${dataUser.state.toLowerCase()}`, requestOptions)
         .then(response => response.json())
         .then(result => {
             setMp(result.data)
@@ -183,11 +183,11 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                         <Form.Group >
                             <Form.Control
                                 type="text"
-                                placeholder="Digite su código postal y presione ENTER"
-                                name="zipCode"
+                                placeholder="Escriba el nombre de su estado y presione ENTER"
+                                name="state"
                                 onChange={handleChange}
                                 required
-                                maxLength="4"
+                                //maxLength="4"
                             />
                         </Form.Group>
                         <Form.Group>
