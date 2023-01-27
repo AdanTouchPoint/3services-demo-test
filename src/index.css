@@ -115,7 +115,7 @@ code {
 }
 .formEmail {
 display: flex;
-
+ column-gap: 20px;
 }
 .emailContainer{
   background-color: #f4f4f4;
