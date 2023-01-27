@@ -88,7 +88,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
             method: 'GET',
             redirect: 'follow'
           };
-        fetch(`https://payload-demo-tpm.herokuapp.com/representatives-state/?clientId=${clientId}&state=${dataUser.state.toLowerCase()}`, requestOptions)
+        fetch(`https://payload-demo-tpm.herokuapp.com/representatives-state/?clientId=${clientId}&state=${dataUser.state}`, requestOptions)
         .then(response => response.json())
         .then(result => {
             setMp(result.data)
@@ -134,7 +134,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
     if(!mp) return 'loading datos'
     return (
 
-        <div className={'container main-form-flex-container'} >
+        <div className={'contenedor main-form-flex-container'} >
             <div>
                 {/*<img style={{margin: '20px', maxHeight: '50px', maxWidth: '50px', height: '100%', width: '100px'}}*/}
                 {/*     src={icon}/>*/}
@@ -193,7 +193,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                         </Form.Group> */}
                         <Form.Group>
 
-                            <Form.Select aria-label="DefaulValue" required name ='state' onChange={handleChange}
+                            <Form.Select className='select-styles-form' aria-label="DefaulValue" required name ='state' onChange={handleChange}
                                 >
                                 
                                 {

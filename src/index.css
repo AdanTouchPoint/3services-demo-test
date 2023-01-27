@@ -11,6 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
 }
+.contenedor{
+  max-width: 1140px;
+  margin: 0 auto;
+}
 .main-image-container{
   margin-top:20px ;
 }
@@ -30,11 +34,15 @@ code {
 }
 .instructions{
   padding: 35px;
+  max-width: 1150px;
 }
 .form-container{
   background-color: #f4f4f4;
   max-width: 1150px;
   height: 100%;
+}
+.select-styles-form{
+  margin:25px auto
 }
 .main-form-flex-container{
   display: block;
@@ -154,6 +162,10 @@ display: flex;
 }
 
 @media (max-width: 767px) {
+  .contenedor{
+    max-width: 90%;
+    margin: 0 auto;
+  }
   .main-form-flex-container{
     margin-bottom: 20px;
   }
@@ -188,6 +200,10 @@ display: flex;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px){
+  .contenedor{
+    max-width: 90%;
+    margin: 0 auto;
+  }
   .main-form-flex-container{
     margin-bottom: 20px;
   }
