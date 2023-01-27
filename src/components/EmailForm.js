@@ -6,7 +6,6 @@ import Col from "react-bootstrap/cjs/Col";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
-import { async } from 'crypto-random-string';
 
 const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData, clientId}) => {
     const [validated, setValidated] = useState(false);
