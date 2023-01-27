@@ -193,7 +193,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                         </Form.Group> */}
                         <Form.Group>
 
-                            <Form.Select aria-label="DefaulValue" required name ='state' onChange={handleChange}
+                            <Form.Select className='select-styles-form' aria-label="DefaulValue" required name ='state' onChange={handleChange}
                                 >
                                 
                                 {

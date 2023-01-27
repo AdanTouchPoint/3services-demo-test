@@ -41,6 +41,9 @@ code {
   max-width: 1150px;
   height: 100%;
 }
+.select-styles-form{
+  margin:25px auto
+}
 .main-form-flex-container{
   display: block;
   justify-content: center;
