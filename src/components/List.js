@@ -12,7 +12,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/tweets/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-tweet')
-        const textoTweet = datos.data?.docs[0].Message
+        const textoTweet = datos.data?.docs[0] ? datos.data?.docs[0].Message : ' '
         setTweet(textoTweet)
     }
     

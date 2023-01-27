@@ -7,14 +7,13 @@ import axios from "axios";
 import List from './List'
 import mainimage from '../assets/laptop-with-notebook-and-glasses-on-table.jpg';
 //import icon from '../assets/tw.png'
-import cryptoRandomString, { async } from "crypto-random-string";
 import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
 import {io} from "socket.io-client"
 import mps from '../assets/mps';
-
+import estates from '../assets/estates'
 
 
 
@@ -83,7 +82,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
 
         setError(false)
 //---> ends validation form
-        const randomId = cryptoRandomString({type: 'distinguishable', length: 10})
+        const randomId = 'asldhjkasjdlkdsaj'
         dataUser.id = randomId;
         const requestOptions = {
             method: 'GET',
@@ -119,7 +118,9 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         setMainData(datos);
         console.log(mainData)
       }
-    
+    const handleSelectState = (event)=>{
+        console.log(event.target.value)
+    }
     useEffect(() => {
         fetchData()
         .catch((error)=>console.error(error))
@@ -180,7 +181,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                 required
                             />
                         </Form.Group>
-                        <Form.Group >
+                        {/* <Form.Group >
                             <Form.Control
                                 type="text"
                                 placeholder="Escriba el nombre de su estado y presione ENTER"
@@ -189,6 +190,18 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                 required
                                 //maxLength="4"
                             />
+                        </Form.Group> */}
+                        <Form.Group>
+
+                            <Form.Select aria-label="DefaulValue" required name ='state' onChange={handleChange}
+                                >
+                                
+                                {
+                                    estates.map((estate)=>(
+                                        <option value={estate} key={estate} >{estate}</option>
+                                    ))
+                                }
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group>
                             <Button

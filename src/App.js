@@ -10,8 +10,8 @@ function App() {
         zipCode: '',
         emailUser: '',
         subject:'',//'The Subject Line is Pre-Filled and can be Edited',
-        text:''//'Users will see a pre-filled email and can edit it before sending. If the system administrator prefers, subject line and/or body text can made uneditable.'
-
+        text:'',//'Users will see a pre-filled email and can edit it before sending. If the system administrator prefers, subject line and/or body text can made uneditable.'
+        state:'Aguascalientes'
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
@@ -25,8 +25,8 @@ function App() {
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-email')
-        dataUser.text = datos.data?.docs[0].content[0].children[0].text
-        dataUser.subject = datos.data?.docs[0].subject
+        dataUser.text = datos.data?.docs[0] ? datos.data?.docs[0].content[0].children[0].text : ''
+        dataUser.subject = datos.data?.docs[0] ? datos.data?.docs[0].subject : ''
     }
     
     useEffect(() => {
