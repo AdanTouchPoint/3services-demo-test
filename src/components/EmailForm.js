@@ -15,12 +15,12 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         e.preventDefault()
         setDataUser({
             ...dataUser,
-            [e.target.name]: e.target.value.replace(/\n\r?/g, '<br/>' )
+            [e.target.name]: e.target.value.replace(/\n\r?/g, '<br/>' ).replace(/#/g, " ")
         })
         setEmailData({
             ...dataUser,
             ...emailData,
-            [e.target.name]: e.target.value.replace(/\n\r?/g, '<br/>' )
+            [e.target.name]: e.target.value.replace(/\n\r?/g, '<br/>' ).replace(/#/g, " ")
         })
     }
     const {userName} = dataUser
@@ -42,8 +42,8 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         }
         setError(false)
         const name = dataUser.userName.split(' ')
-        console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode: dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {dataUser, emailData})
+        console.log(dataUser.text.replace(/\n\r?/g, "<br/>"))
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&firstName=${dataUser.userName}&emailData=${dataUser.emailUser}&text=${dataUser.text.replace(/\n\r?/g, "<br/>")}`)
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             correoEnviado('Si',{dataUser, emailData})

@@ -72,6 +72,11 @@ code {
   justify-content: center;
   padding: 0px 15px;
 }
+.select-label{
+  margin-top: 30px;
+  margin-bottom: 0px;
+  font-size: 19px;
+}
 .form-group{
   max-width: 1050px;
 }

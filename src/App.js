@@ -25,8 +25,23 @@ function App() {
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-email')
-        dataUser.text = datos.data?.docs[0] ? datos.data?.docs[0].content[0].children[0].text : ''
-        dataUser.subject = datos.data?.docs[0] ? datos.data?.docs[0].subject : ''
+        const payload = datos.data.docs[0].content;
+    if (payload.length > 0) {
+      const txt = payload.map((el) => {
+        console.log(el.children[0].text);
+        return el.children[0].text + `\n`;
+      });
+      let sub = datos.data.docs[0].subject;
+      dataUser.text =
+        txt.length > 0
+          ? txt.join(" ").replace(/#/g, " ")
+          : "Introduzca un texto sugerido";
+      dataUser.subject =
+        sub.length > 0 ? sub : "Por favor introduzca un asunto del correos";
+      console.log();
+      console.log(txt);
+      return txt;
+    }
     }
     
     useEffect(() => {
