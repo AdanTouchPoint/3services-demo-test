@@ -192,7 +192,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                             />
                         </Form.Group> */}
                         <Form.Group>
-
+                            <p className='select-label'>Por favor seleccione su estado</p>
                             <Form.Select className='select-styles-form' aria-label="DefaulValue" required name ='state' onChange={handleChange}
                                 >
                                 
