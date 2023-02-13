@@ -60,7 +60,7 @@ function App() {
     } )
     const uniq = new Set(states)
           setStates([...uniq]);
-          console.log(uniq, "states");
+          //console.log(uniq, "states");
       };
     
     useEffect(() => {
