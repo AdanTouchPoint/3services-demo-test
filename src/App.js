@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import MainForm from "./components/MainForm";
-
+//require('dotenv').config()
 function App() {
     const [emailData, setEmailData] = useState({
         userName: ''
@@ -15,8 +15,8 @@ function App() {
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
-    const [clientId, setClientId] = useState(`63cef5b73a7ef024f7ec6b00`)
-    const adanCID ='636dadcf2626f92aade6664a'
+    const [clientId] = useState(`63cef5b73a7ef024f7ec6b00`)
+   // const adanCID ='636dadcf2626f92aade6664a'
     const fetchData = async () => {
         const requestOptions = {
             method: 'POST',
@@ -24,11 +24,11 @@ function App() {
         }
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
-        console.log(datos.data, 'datos.data-email')
+        //console.log(datos.data, 'datos.data-email')
         const payload = datos.data.docs[0].content;
     if (payload.length > 0) {
       const txt = payload.map((el) => {
-        console.log(el.children[0].text);
+        //console.log(el.children[0].text);
         return el.children[0].text + `\n`;
       });
       let sub = datos.data.docs[0].subject;
@@ -38,8 +38,8 @@ function App() {
           : "Introduzca un texto sugerido";
       dataUser.subject =
         sub.length > 0 ? sub : "Por favor introduzca un asunto del correos";
-      console.log();
-      console.log(txt);
+      //console.log();
+      //console.log(txt);
       return txt;
     }
     }
@@ -48,7 +48,7 @@ function App() {
         fetchData()
         .catch((error)=>console.error(error))
         
-        console.log(dataUser)
+        //console.log(dataUser)
     },[])
     
     

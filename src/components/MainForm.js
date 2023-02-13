@@ -1,9 +1,9 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Loader from "react-loader-spinner";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/cjs/Button";
 import Alert from "react-bootstrap/Alert";
-import axios from "axios";
+//import axios from "axios";
 import List from './List'
 import mainimage from '../assets/laptop-with-notebook-and-glasses-on-table.jpg';
 //import icon from '../assets/tw.png'
@@ -11,8 +11,8 @@ import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
-import {io} from "socket.io-client"
-import mps from '../assets/mps';
+//import {io} from "socket.io-client"
+//import mps from '../assets/mps';
 import estates from '../assets/estates'
 
 
@@ -58,8 +58,8 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
             ...dataUser,
             [e.target.name]: e.target.value
         })
-        console.log(e.target.value)
-        console.log(dataUser)
+        //console.log(e.target.value)
+        //console.log(dataUser)
     }
     const { state, emailUser } = dataUser;
 
@@ -114,22 +114,19 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         }
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/main-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
-        console.log(datos.data, 'datos.data')
+        //console.log(datos.data, 'datos.data')
         setMainData(datos);
-        console.log(mainData)
+        //console.log(mainData)
       }
-    const handleSelectState = (event)=>{
-        console.log(event.target.value)
-    }
     useEffect(() => {
         fetchData()
         .catch((error)=>console.error(error))
 
-    console.log(mainData)
+    //console.log(mainData)
     },[])
-    console.log(dataUser)
-    console.log(mp, 'log de estado mp')
-    console.log(mainData, 'mainData fuera antes del return')
+    //console.log(dataUser)
+    //console.log(mp, 'log de estado mp')
+    //console.log(mainData, 'mainData fuera antes del return')
     if(!mainData) return 'loading datos'
     if(!mp) return 'loading datos'
     return (
@@ -211,7 +208,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                 onClick={click}
                                 className={'u-full-width capitalize-style find-btn-main-form'}
                             >
-                                {mainData.data?.docs[0]  ? mainData.data?.docs[0] ['Find Button'] : 'Find your representative'}
+                                {mainData.data?.docs[0]  ? mainData.data?.docs[0]['Find Button'] : 'Find your representative'}
                             </Button>
                         </Form.Group>
                         {showLoadSpin ? <Loader
@@ -241,7 +238,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                     dataUser={dataUser}
                                     mps={mps}
                                     clientId={clientId}
-                                    //key={index}
+                                    key={index}
                                 />)  
                             ): <Alert variant='danger'>No se han encontrado representantes con el código postal que nos ha proveído</Alert> }
                         </div>

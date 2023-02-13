@@ -41,8 +41,8 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             return
         }
         setError(false)
-        const name = dataUser.userName.split(' ')
-        console.log(dataUser.text.replace(/\n\r?/g, "<br/>"))
+        //const name = dataUser.userName.split(' ')
+        //console.log(dataUser.text.replace(/\n\r?/g, "<br/>"))
         const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&firstName=${dataUser.userName}&emailData=${dataUser.emailUser}&text=${dataUser.text.replace(/\n\r?/g, "<br/>")}`)
         await setShowLoadSpin(false)
         if (payload.status === 200) {
@@ -51,9 +51,9 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
             setShowThankYou(false)
             dataUser.id = ''
         }
-        if(payload.status !== 200)
+        if(payload.status !== 200){
         correoEnviado('No', {dataUser, emailData})
-        {
+        
             return (
                 <Alert>
                     El correo no ha sido enviado con éxito, por favor intente de nuevo más tarde
@@ -72,8 +72,8 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setShowFindForm(false)
         setShowEmailForm(true)
     }
-    console.log('emailData',emailData)
-    console.log(dataUser, 'data user')
+    //console.log('emailData',emailData)
+    //console.log(dataUser, 'data user')
     return (
         <div className={'emailContainer'} hidden={showEmailForm}>
             {error ? <Alert variant={'danger'}>
