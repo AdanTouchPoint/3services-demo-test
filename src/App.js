@@ -15,7 +15,7 @@ function App() {
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
-    const [clientId] = useState(`63cef5b73a7ef024f7ec6b00`)
+    const [clientId] = useState(process.env.REACT_APP_ID_CLIENT)
    // const adanCID ='636dadcf2626f92aade6664a'
     const fetchData = async () => {
         const requestOptions = {
