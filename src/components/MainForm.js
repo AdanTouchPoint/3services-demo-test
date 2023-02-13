@@ -13,11 +13,11 @@ import Card from "react-bootstrap/cjs/Card";
 import {Link, animateScroll as scroll} from "react-scroll";
 //import {io} from "socket.io-client"
 //import mps from '../assets/mps';
-import estates from '../assets/estates'
+//import estates from '../assets/estates'
 
 
 
-const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, clientId}) => {
+const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, clientId, states}) => {
     const [showLoadSpin, setShowLoadSpin] = useState(false)
     const [showList, setShowList] = useState(true)
     const [showFindForm, setShowFindForm] = useState(false)
@@ -192,10 +192,10 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                             <p className='select-label'>Por favor seleccione su estado</p>
                             <Form.Select className='select-styles-form' aria-label="DefaulValue" required name ='state' onChange={handleChange}
                                 >
-                                
+                                <option key={'vacio'} value={''}>Selecciona tu estado</option>
                                 {
-                                    estates.map((estate)=>(
-                                        <option value={estate} key={estate} >{estate}</option>
+                                    states.map((estate)=>(
+                                        <option key={estate} value={estate} >{estate}</option>
                                     ))
                                 }
                             </Form.Select>
