@@ -12,7 +12,7 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou, clientId}) =>
         }
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/typ-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
-        console.log(datos.data, 'datos.data-typ')
+        //console.log(datos.data, 'datos.data-typ')
         setTypData(datos)
     }
     
@@ -20,7 +20,7 @@ const ThankYou = ({showThankYou, setShowFindForm, setShowThankYou, clientId}) =>
         fetchData()
         .catch((error)=>console.error(error))
         
-        console.log(typData)
+        //console.log(typData)
     },[])
     const click = e => {
         e.preventDefault()
