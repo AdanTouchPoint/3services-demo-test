@@ -11,11 +11,12 @@ function App() {
         emailUser: '',
         subject:'',//'The Subject Line is Pre-Filled and can be Edited',
         text:'',//'Users will see a pre-filled email and can edit it before sending. If the system administrator prefers, subject line and/or body text can made uneditable.'
-        state:'Aguascalientes'
+        state:''
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
-    const [clientId] = useState(`63cef5b73a7ef024f7ec6b00`)
+    const [states, setStates] = useState([])
+    const [clientId] = useState('63cef5b73a7ef024f7ec6b00')
    // const adanCID ='636dadcf2626f92aade6664a'
     const fetchData = async () => {
         const requestOptions = {
@@ -43,9 +44,29 @@ function App() {
       return txt;
     }
     }
+    const representativesBatch = async () => {
+        const requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+        const data = await fetch(
+          `https://payload-demo-tpm.herokuapp.com/all-representatives/?clientId=${clientId}`,
+          requestOptions
+        );
+        const datos = await data.json();
+    const payload = datos.data
+    const states = payload.map( el => {
+    return  el.state
+    } )
+    const uniq = new Set(states)
+          setStates([...uniq]);
+          console.log(uniq, "states");
+      };
     
     useEffect(() => {
         fetchData()
+        .catch((error)=>console.error(error))
+        representativesBatch()
         .catch((error)=>console.error(error))
         
         //console.log(dataUser)
@@ -64,6 +85,7 @@ function App() {
             senator={senator}
             setSenator={setSenator}
             clientId={clientId}
+            states={states}
         />
     )
 
