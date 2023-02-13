@@ -194,7 +194,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                 >
                                 <option key={'vacio'} value={''}>Selecciona tu estado</option>
                                 {
-                                    states.map((estate)=>(
+                                    states.sort().map((estate)=>(
                                         <option key={estate} value={estate} >{estate}</option>
                                     ))
                                 }
