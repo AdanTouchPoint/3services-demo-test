@@ -26,7 +26,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
     const [error, setError] = useState(false)
     const [showThankYou, setShowThankYou] = useState(true)
     const [mainData, setMainData] = useState({})
- 
+    const [tac, setTac] = useState(false)
     // const payloadURL = 'https://payload-demo-tpm.herokuapp.com'
     // const socket = io(payloadURL);
 
@@ -52,6 +52,14 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
     //     console.log('Tweets data',data);
     // });
 
+    const handleTerms = (e) => {
+        if (e.target.checked === true) {
+          setTac(true)
+      } else {
+        setTac(false)
+      }
+    }
+
     const handleChange = e => {
         e.preventDefault();
         setDataUser({
@@ -75,7 +83,8 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         }
         setValidated(true);
         if (//firstName.trim() === '' || lastName.trim() === '' || //
-            state.trim() === '' || emailUser.trim() === '') {
+            tac === false || state.trim() === '' || emailUser.trim() === '') {
+
             setError(true)
             return
         }
@@ -199,6 +208,18 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                                     ))
                                 }
                             </Form.Select>
+                        </Form.Group>
+                        <Form.Group style={{textAlign: "justify"}} controlId="conditions">
+                            <Form.Check
+                            name="conditions"
+                            onClick={handleTerms}
+                            required
+                            label={
+                                <a target={"_blank"} rel={"noreferrer"} href={mainData.data?.docs[0]
+                                ? mainData.data?.docs[0].terms
+                                : "Please enter a url on your dashboard"}> Accepto los terminoss y condiciones</a>
+                            }
+                            />
                         </Form.Group>
                         <Form.Group>
                             <Button
