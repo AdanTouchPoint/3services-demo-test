@@ -79,7 +79,7 @@ const List = ({mps, dataUser,  setEmailData,  setShowFindForm, setShowEmailForm,
                                 className='list-button'
                                 size={'sm'}
                                 variant={'dark'}
-                                href={`tel:+55${mps.phone}`}
+                                href={`tel:${mps.phone}`}
                                 target={"blank"}
                             >
                                 Llamada
