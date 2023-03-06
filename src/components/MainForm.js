@@ -74,8 +74,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
     const click = async e => {
         e.preventDefault();
         // load spin
-        setShowLoadSpin(true)
-//validation form -->
+        //validation form -->
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
             e.preventDefault();
@@ -83,12 +82,13 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
         }
         setValidated(true);
         if (//firstName.trim() === '' || lastName.trim() === '' || //
-            tac === false || state.trim() === '' || emailUser.trim() === '') {
-
+        tac === false || state.trim() === '' || emailUser.trim() === '') {
+            
             setError(true)
             return
         }
-
+        
+        setShowLoadSpin(true)
         setError(false)
 //---> ends validation form
         const randomId = 'asldhjkasjdlkdsaj'
