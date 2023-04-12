@@ -217,7 +217,7 @@ const MainForm = ({dataUser, setDataUser, mp, setMp, setEmailData, emailData, cl
                             label={
                                 <a target={"_blank"} rel={"noreferrer"} href={mainData.data?.docs[0]
                                 ? mainData.data?.docs[0].terms
-                                : "Please enter a url on your dashboard"}> Accepto los terminoss y condiciones</a>
+                                : "Please enter a url on your dashboard"}> Accepto los terminos y condiciones</a>
                             }
                             />
                         </Form.Group>
